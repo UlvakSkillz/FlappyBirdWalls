@@ -99,3 +99,4 @@ C:\Users\austi\source\repos\FlappyBirdWalls\FlappyBirdWalls\obj\Debug\net6.0\Fla
 C:\Users\austi\source\repos\FlappyBirdWalls\FlappyBirdWalls\obj\Debug\net6.0\ref\FlappyBirdWalls.dll
 C:\Users\austi\source\repos\FlappyBirdWalls\FlappyBirdWalls\bin\Debug\net6.0\UnityEngine.Il2CppAssetBundleManager.dll
 C:\Users\austi\source\repos\FlappyBirdWalls\FlappyBirdWalls\bin\Debug\net6.0\UnityEngine.Il2CppAssetBundleManager.pdb
+C:\Users\austi\source\repos\FlappyBirdWalls\FlappyBirdWalls\obj\Debug\net6.0\FlappyBirdWalls.sourcelink.json

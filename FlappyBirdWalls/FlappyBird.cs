@@ -68,11 +68,11 @@ namespace FlappyBirdWalls
             pipes = new List<Vector2>() { new Vector2(halfScreenWidth + 25, random.Next(-maxPipeHeight, maxPipeHeight)), new Vector2((halfScreenWidth * 2) + 75, random.Next(-maxPipeHeight, maxPipeHeight)) };
             canvas.SetActive(true);
             TextMeshProUGUI score1TMP = score1.GetComponent<TextMeshProUGUI>();
-            score1TMP.text = "0";
+            score1TMP.text = "1";
             score1TMP.alignment = TextAlignmentOptions.Center;
             score1TMP.fontSize = 64f;
             TextMeshProUGUI score2TMP = score2.GetComponent<TextMeshProUGUI>();
-            score2TMP.text = "1";
+            score2TMP.text = "2";
             score2TMP.alignment = TextAlignmentOptions.Center;
             score2TMP.fontSize = 64f;
             MelonCoroutines.Start(StopGameIfStructureDestroyed(this.gameObject.transform.parent.gameObject));

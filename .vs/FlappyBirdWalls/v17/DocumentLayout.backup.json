@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\austi\\source\\repos\\FlappyBirdWalls\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|c:\\users\\austi\\source\\repos\\flappybirdwalls\\flappybirdwalls\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|solutionrelative:flappybirdwalls\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|c:\\users\\austi\\source\\repos\\flappybirdwalls\\flappybirdwalls\\flappybird.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|solutionrelative:flappybirdwalls\\flappybird.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|c:\\users\\austi\\source\\repos\\flappybirdwalls\\flappybirdwalls\\flappybirtstart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|solutionrelative:flappybirdwalls\\flappybirtstart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|c:\\users\\austi\\source\\repos\\flappybirdwalls\\flappybirdwalls\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|solutionrelative:flappybirdwalls\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|c:\\users\\austi\\source\\repos\\flappybirdwalls\\flappybirdwalls\\flappybirdwalls.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|solutionrelative:flappybirdwalls\\flappybirdwalls.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|c:\\users\\austi\\source\\repos\\flappybirdwalls\\flappybirdwalls\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|solutionrelative:flappybirdwalls\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|c:\\users\\austi\\source\\repos\\flappybirdwalls\\flappybirdwalls\\flappybird.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EC64F32-3600-47E1-8164-9F841D3D7D2A}|FlappyBirdWalls\\FlappyBirdWalls.csproj|solutionrelative:flappybirdwalls\\flappybird.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,8 +30,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FlappyBirdWalls",
+              "DocumentMoniker": "C:\\Users\\austi\\source\\repos\\FlappyBirdWalls\\FlappyBirdWalls\\FlappyBirdWalls.csproj",
+              "RelativeDocumentMoniker": "FlappyBirdWalls\\FlappyBirdWalls.csproj",
+              "ToolTip": "C:\\Users\\austi\\source\\repos\\FlappyBirdWalls\\FlappyBirdWalls\\FlappyBirdWalls.csproj",
+              "RelativeToolTip": "FlappyBirdWalls\\FlappyBirdWalls.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-06T01:39:17.265Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -42,39 +57,38 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "FlappyBirtStart.cs",
               "DocumentMoniker": "C:\\Users\\austi\\source\\repos\\FlappyBirdWalls\\FlappyBirdWalls\\FlappyBirtStart.cs",
               "RelativeDocumentMoniker": "FlappyBirdWalls\\FlappyBirtStart.cs",
               "ToolTip": "C:\\Users\\austi\\source\\repos\\FlappyBirdWalls\\FlappyBirdWalls\\FlappyBirtStart.cs",
               "RelativeToolTip": "FlappyBirdWalls\\FlappyBirtStart.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-31T04:47:19.561Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "FlappyBird.cs",
               "DocumentMoniker": "C:\\Users\\austi\\source\\repos\\FlappyBirdWalls\\FlappyBirdWalls\\FlappyBird.cs",
               "RelativeDocumentMoniker": "FlappyBirdWalls\\FlappyBird.cs",
               "ToolTip": "C:\\Users\\austi\\source\\repos\\FlappyBirdWalls\\FlappyBirdWalls\\FlappyBird.cs",
               "RelativeToolTip": "FlappyBirdWalls\\FlappyBird.cs",
-              "ViewState": "AgIAAKMAAAAAAAAAAAAYwFEAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAIwFoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T04:50:03.861Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-31T04:50:03.861Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Main.cs",
               "DocumentMoniker": "C:\\Users\\austi\\source\\repos\\FlappyBirdWalls\\FlappyBirdWalls\\Main.cs",
               "RelativeDocumentMoniker": "FlappyBirdWalls\\Main.cs",
               "ToolTip": "C:\\Users\\austi\\source\\repos\\FlappyBirdWalls\\FlappyBirdWalls\\Main.cs",
               "RelativeToolTip": "FlappyBirdWalls\\Main.cs",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAmwK0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-31T01:15:18.47Z",
               "EditorCaption": ""

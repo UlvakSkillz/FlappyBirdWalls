@@ -14,7 +14,7 @@ namespace FlappyBirdWalls
     {
         public const string ModName = "FlappyBirdWalls";
         public const string Author = "UlvakSkillz";
-        public const string ModVersion = "1.0.1";
+        public const string ModVersion = "1.0.2";
     }
 
     public class Main : MelonMod
@@ -23,6 +23,14 @@ namespace FlappyBirdWalls
         private Mod FlappyBirdWalls = new Mod();
         public static bool touchPlay = true;
         public static bool kickPlay = true;
+        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresWall;
+        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresCube;
+        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresPillar;
+        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresBall;
+        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresDisc;
+        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresBoulder;
+        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresSmallRock;
+        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresTetherBall;
 
         [HarmonyPatch(typeof(Structure), "Start")]
         public static class StructureSpawn
@@ -50,9 +58,9 @@ namespace FlappyBirdWalls
                 if (!kickPlay) { return; }
                 if (set.name == "PoseSetKick")
                 {
-                    GameObject wallSelected = SelectStructure();
-                    if (wallSelected == null) { return; }
-                    FlappyBird flappyBird = wallSelected.transform.GetChild(0).GetComponent<FlappyBird>();
+                    GameObject structureSelected = SelectStructure(PlayerManager.instance.localPlayer.Controller.gameObject.transform.GetChild(1).GetChild(0).GetChild(0));
+                    if ((structureSelected == null) || (structureSelected.name != "Wall")) { return; }
+                    FlappyBird flappyBird = structureSelected.transform.GetChild(0).GetComponent<FlappyBird>();
                     if (!flappyBird.gameStarted)
                     {
                         flappyBird.StartGame();
@@ -65,70 +73,87 @@ namespace FlappyBirdWalls
             }
         }
 
-        public static GameObject SelectStructure()
+        public static GameObject SelectStructure(Transform playerPos)
         {
-            List<GameObject> walls = new List<GameObject>();
-            List<GameObject> closestWallsGOs = new List<GameObject>();
-            List<float> closestWallsDistance = new List<float>();
-            Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledObjects = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("Wall")].PooledObjects;
-            Transform playerPos = PlayerManager.instance.localPlayer.Controller.gameObject.transform.GetChild(1).GetChild(0).GetChild(0); //headset
-            for (int i = 0; i < pooledObjects.Count; i++)
+            List<GameObject> structuresWithinZOM = new List<GameObject>(); //ZOM = Zone of Modification
+            List<GameObject> lookingAtStructureGOs = new List<GameObject>();
+            List<float> lookingAtStructureDistances = new List<float>();
+            Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructures = new Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour>();
+            //Add each Turned On Structure to a Single List
+            for (int i = 0; i < pooledStructuresWall.Count; i++) { if (pooledStructuresWall[i].transform.gameObject.active) { pooledStructures.Add(pooledStructuresWall[i]); } }
+            for (int i = 0; i < pooledStructuresCube.Count; i++) { if (pooledStructuresCube[i].transform.gameObject.active) { pooledStructures.Add(pooledStructuresCube[i]); } }
+            for (int i = 0; i < pooledStructuresPillar.Count; i++) if (pooledStructuresPillar[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresPillar[i]); } }
+            for (int i = 0; i < pooledStructuresBall.Count; i++) if (pooledStructuresBall[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresBall[i]); } }
+            for (int i = 0; i < pooledStructuresDisc.Count; i++) if (pooledStructuresDisc[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresDisc[i]); } }
+            for (int i = 0; i < pooledStructuresBoulder.Count; i++) if (pooledStructuresBoulder[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresBoulder[i]); } }
+            for (int i = 0; i < pooledStructuresSmallRock.Count; i++) if (pooledStructuresSmallRock[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresSmallRock[i]); } }
+            for (int i = 0; i < pooledStructuresTetherBall.Count; i++) if (pooledStructuresTetherBall[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresTetherBall[i]); } }
+            //for each structure
+            for (int i = 0; i < pooledStructures.Count; i++)
             {
-                GameObject wall = pooledObjects[i].networkGameObject.cachedRigidBody.gameObject;
-                Vector3 difference = wall.transform.position - playerPos.position;
-                float distence = Vector3.Distance(wall.transform.position, playerPos.position);
-                difference = new Vector3(Math.Abs(difference.x), Math.Abs(difference.y), Math.Abs(difference.z));
-                if ((wall.active) && (difference.x < 2.5f) && (difference.y < 2.5f) && (difference.z < 2.5f))
+                GameObject structure = pooledStructures[i].transform.gameObject;
+                float distence = Vector2.Distance(structure.transform.position, playerPos.position);
+                float heightDifference = Vector2.Distance(new Vector2(0, structure.transform.position.y), new Vector2(0, playerPos.position.y));
+                //if within 2.5 distance on Y axis, and x/z Distance is within 2.5 (Position Check)
+                if ((Vector2.Distance(new Vector2(structure.transform.position.x, structure.transform.position.z), new Vector2(playerPos.transform.position.x, playerPos.transform.position.z)) < 2.5f) && (heightDifference < 2.5f))
                 {
-                    Vector3 forwardVector = playerPos.forward.normalized;
-                    Vector3 directionToObject = (wall.transform.position - playerPos.position).normalized;
-                    float dotProduct = Vector3.Dot(forwardVector, directionToObject);
+                    Vector2 forwardVector = new Vector2(playerPos.forward.normalized.x, playerPos.forward.normalized.z);
+                    Vector2 directionToObject = new Vector2((structure.transform.position - playerPos.position).normalized.x, (structure.transform.position - playerPos.position).normalized.z);
+                    float dotProduct = Vector2.Dot(forwardVector, directionToObject);
                     float angle = Mathf.Acos(dotProduct) * Mathf.Rad2Deg; // Convert radians to degrees
-                    float halfFOV = 180f; //degree FOV
-
-                    if (angle <= halfFOV)
+                    //if within the 180 degree FOV (Rotation Check)
+                    if (angle <= 90f) //90f = 180 fov
                     {
-                        walls.Add(wall);
-                        if (angle <= 30f)
+                        structuresWithinZOM.Add(structure);
+                        //if within 60 degree FOV (Looking At Check)
+                        if (angle <= 30f) //30f = 60 fov
                         {
-                            closestWallsGOs.Add(wall);
-                            closestWallsDistance.Add(distence);
+                            lookingAtStructureGOs.Add(structure);
+                            lookingAtStructureDistances.Add(distence);
                         }
                     }
                 }
             }
-            if (walls.Count > 0)
+            //if at least 1 Structure in Range
+            if (structuresWithinZOM.Count > 0)
             {
-                if (closestWallsGOs.Count > 0)
+                //if looking at at least 1 structure
+                if (lookingAtStructureGOs.Count > 0)
                 {
                     int smallestDistanceSpot = -1;
-                    float smallestDistance = 10;
-                    for (int i = 0; i < closestWallsGOs.Count; i++)
+                    float smallestDistance = 2.6f;
+                    for (int i = 0; i < lookingAtStructureGOs.Count; i++)
                     {
-                        if (closestWallsDistance[i] < smallestDistance)
+                        //if it's closer than the closest on x/z Axis, store as new closest
+                        if (lookingAtStructureDistances[i] < smallestDistance)
                         {
                             smallestDistanceSpot = i;
-                            smallestDistance = closestWallsDistance[i];
+                            smallestDistance = lookingAtStructureDistances[i];
                         }
                     }
-                    return closestWallsGOs[smallestDistanceSpot];
+                    //return the Closest of the Looked at Structures
+                    return lookingAtStructureGOs[smallestDistanceSpot];
                 }
+                //if not looking at a Structure, but at least 1 within side of View
                 else
                 {
                     int closest = -1;
-                    float closestDistance = 10;
-                    for (int i = 0; i < closestWallsGOs.Count; i++)
+                    float closestDistance = 2.6f;
+                    for (int i = 0; i < structuresWithinZOM.Count; i++)
                     {
-                        float distance = Vector3.Distance(walls[i].transform.position, playerPos.transform.position);
+                        //if it's closer than the closest on x/z Axis, store as new closest
+                        float distance = Vector2.Distance(new Vector2(structuresWithinZOM[i].transform.position.x, structuresWithinZOM[i].transform.position.z), new Vector2(playerPos.transform.position.x, playerPos.transform.position.z));
                         if (distance < closestDistance)
                         {
                             closest = i;
                             closestDistance = distance;
                         }
                     }
-                    return walls[closest];
+                    //return the closest of the structures within ZOM
+                    return structuresWithinZOM[closest];
                 }
             }
+            //return null if No Structure in Range
             else { return null; }
         }
 
@@ -146,6 +171,22 @@ namespace FlappyBirdWalls
             FlappyBirdWalls.GetFromFile();
             UI.instance.UI_Initialized += UIInit;
             FlappyBirdWalls.ModSaved += Save;
+        }
+
+        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        {
+            if (sceneName == "Loader")
+            {
+                //store pools
+                pooledStructuresWall = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("Wall")].PooledObjects;
+                pooledStructuresCube = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("RockCube")].PooledObjects;
+                pooledStructuresPillar = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("Pillar")].PooledObjects;
+                pooledStructuresBall = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("Ball")].PooledObjects;
+                pooledStructuresDisc = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("Disc")].PooledObjects;
+                pooledStructuresBoulder = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("LargeRock")].PooledObjects;
+                pooledStructuresSmallRock = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("SmallRock")].PooledObjects;
+                pooledStructuresTetherBall = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("BoulderBall")].PooledObjects;
+            }
         }
 
         private void UIInit()
