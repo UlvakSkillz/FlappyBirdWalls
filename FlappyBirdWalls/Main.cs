@@ -5,6 +5,7 @@ using Il2CppRUMBLE.Players.Subsystems;
 using Il2CppRUMBLE.Pools;
 using Il2CppRUMBLE.Poses;
 using MelonLoader;
+using RumbleModdingAPI;
 using RumbleModUI;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace FlappyBirdWalls
     {
         public const string ModName = "FlappyBirdWalls";
         public const string Author = "UlvakSkillz";
-        public const string ModVersion = "1.0.2";
+        public const string ModVersion = "1.1.1";
     }
 
     public class Main : MelonMod
@@ -58,7 +59,7 @@ namespace FlappyBirdWalls
                 if (!kickPlay) { return; }
                 if (set.name == "PoseSetKick")
                 {
-                    GameObject structureSelected = SelectStructure(PlayerManager.instance.localPlayer.Controller.gameObject.transform.GetChild(1).GetChild(0).GetChild(0));
+                    GameObject structureSelected = SelectStructure(PlayerManager.instance.localPlayer.Controller.gameObject.transform.GetChild(2).GetChild(0).GetChild(0));
                     if ((structureSelected == null) || (structureSelected.name != "Wall")) { return; }
                     FlappyBird flappyBird = structureSelected.transform.GetChild(0).GetComponent<FlappyBird>();
                     if (!flappyBird.gameStarted)
@@ -159,7 +160,7 @@ namespace FlappyBirdWalls
 
         public override void OnLateInitializeMelon()
         {
-            ddolCanvas = LoadAssetBundle("FlappyBirdWalls.flappybird", "Canvas");
+            ddolCanvas = GameObject.Instantiate(Calls.LoadAssetFromStream<GameObject>(this, "FlappyBirdWalls.flappybird", "Canvas"));
             ddolCanvas.name = "Flappy Bird Canvas";
             ddolCanvas.SetActive(false);
             GameObject.DontDestroyOnLoad(ddolCanvas);
