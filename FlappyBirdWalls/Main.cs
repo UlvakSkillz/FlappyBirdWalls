@@ -15,7 +15,7 @@ namespace FlappyBirdWalls
     {
         public const string ModName = "FlappyBirdWalls";
         public const string Author = "UlvakSkillz";
-        public const string ModVersion = "1.1.1";
+        public const string ModVersion = "1.1.2";
     }
 
     public class Main : MelonMod
@@ -56,21 +56,25 @@ namespace FlappyBirdWalls
         {
             private static void Postfix(PoseSet set)
             {
-                if (!kickPlay) { return; }
-                if (set.name == "PoseSetKick")
+                try
                 {
-                    GameObject structureSelected = SelectStructure(PlayerManager.instance.localPlayer.Controller.gameObject.transform.GetChild(2).GetChild(0).GetChild(0));
-                    if ((structureSelected == null) || (structureSelected.name != "Wall")) { return; }
-                    FlappyBird flappyBird = structureSelected.transform.GetChild(0).GetComponent<FlappyBird>();
-                    if (!flappyBird.gameStarted)
+                    if (!kickPlay) { return; }
+                    if (set.name == "PoseSetKick")
                     {
-                        flappyBird.StartGame();
-                    }
-                    else
-                    {
-                        flappyBird.Jump();
+                        GameObject structureSelected = SelectStructure(PlayerManager.instance.localPlayer.Controller.gameObject.transform.GetChild(2).GetChild(0).GetChild(0));
+                        if ((structureSelected == null) || (structureSelected.name != "Wall")) { return; }
+                        FlappyBird flappyBird = structureSelected.transform.GetChild(0).GetComponent<FlappyBird>();
+                        if (!flappyBird.gameStarted)
+                        {
+                            flappyBird.StartGame();
+                        }
+                        else
+                        {
+                            flappyBird.Jump();
+                        }
                     }
                 }
+                catch { }
             }
         }
 
