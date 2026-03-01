@@ -1,6 +1,6 @@
 ﻿using MelonLoader;
 using System.Reflection;
-using FlappyBirdWalls;
+using BuildInfo = FlappyBirdWalls.BuildInfo;
 
 [assembly: MelonInfo(typeof(FlappyBirdWalls.Main), BuildInfo.ModName, BuildInfo.ModVersion, BuildInfo.Author)]
 [assembly: MelonGame("Buckethead Entertainment", "RUMBLE")]

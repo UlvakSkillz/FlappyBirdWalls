@@ -39,10 +39,10 @@ namespace FlappyBirdWalls
             Component.Destroy(triggerGO.GetComponent<MeshRenderer>());
             triggerGO.name = "FlappyBirdTrigger";
             triggerGO.transform.parent = this.gameObject.transform;
-            triggerGO.transform.localPosition = new Vector3(0f, 0f, -0.22f);
+            triggerGO.transform.localPosition = new Vector3(0f, 0f, -0.315f);
             triggerGO.transform.localRotation = Quaternion.identity;
             triggerGO.transform.localScale = new Vector3(1.1f, 1.9f, 0.01f);
-            triggerGO.layer = 22;
+            triggerGO.layer = 22; //PlayerOnPlayerInteraction
             triggerGO.GetComponent<BoxCollider>().isTrigger = true;
             triggerGO.AddComponent<FlappyBirdStart>();
             canvas = GameObject.Instantiate(Main.ddolCanvas);
@@ -55,8 +55,9 @@ namespace FlappyBirdWalls
             birdUp = canvas.transform.GetChild(2).GetChild(0).gameObject;
             birdFlat = canvas.transform.GetChild(2).GetChild(1).gameObject;
             birdDown = canvas.transform.GetChild(2).GetChild(2).gameObject;
+
             canvas.transform.parent = this.gameObject.transform;
-            canvas.transform.localPosition = new Vector3(0f, 0f, -0.225f);
+            canvas.transform.localPosition = new Vector3(0f, 0f, -0.315f);
             canvas.transform.localRotation = Quaternion.identity;
             canvas.transform.localScale = new Vector3(0.0023f, 0.0023f, 0.0023f);
         }
@@ -81,7 +82,7 @@ namespace FlappyBirdWalls
 
         private IEnumerator StopGameIfStructureDestroyed(GameObject structure)
         {
-            while (structure.active)
+            while (structure.activeSelf)
             {
                 yield return new WaitForFixedUpdate();
             }
@@ -127,7 +128,7 @@ namespace FlappyBirdWalls
             bird.height += bird.speedY;
             if (Math.Abs(bird.speedY) < 1)
             {
-                if (!birdFlat.active)
+                if (!birdFlat.activeSelf)
                 {
                     birdFlat.SetActive(true);
                     birdUp.SetActive(false);
@@ -136,7 +137,7 @@ namespace FlappyBirdWalls
             }
             else if (0 < bird.speedY)
             {
-                if (!birdUp.active)
+                if (!birdUp.activeSelf)
                 {
                     birdUp.SetActive(true);
                     birdFlat.SetActive(false);
@@ -145,7 +146,7 @@ namespace FlappyBirdWalls
             }
             else if (bird.speedY < 0)
             {
-                if (!birdDown.active)
+                if (!birdDown.activeSelf)
                 {
                     birdDown.SetActive(true);
                     birdUp.SetActive(false);

@@ -5,7 +5,7 @@ using Il2CppRUMBLE.Players.Subsystems;
 using Il2CppRUMBLE.Pools;
 using Il2CppRUMBLE.Poses;
 using MelonLoader;
-using RumbleModdingAPI;
+using RumbleModdingAPI.RMAPI;
 using RumbleModUI;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ namespace FlappyBirdWalls
     {
         public const string ModName = "FlappyBirdWalls";
         public const string Author = "UlvakSkillz";
-        public const string ModVersion = "1.1.2";
+        public const string ModVersion = "1.2.1";
     }
 
     public class Main : MelonMod
@@ -33,7 +33,7 @@ namespace FlappyBirdWalls
         private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresSmallRock;
         private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresTetherBall;
 
-        [HarmonyPatch(typeof(Structure), "Start")]
+        [HarmonyPatch(typeof(Structure), nameof(Structure.OnFetchFromPool))]
         public static class StructureSpawn
         {
             private static void Postfix(ref Structure __instance)
@@ -51,7 +51,7 @@ namespace FlappyBirdWalls
             }
         }
 
-        [HarmonyPatch(typeof(PlayerPoseSystem), "OnPoseSetCompleted", new Type[] { typeof(PoseSet) })]
+        [HarmonyPatch(typeof(PlayerPoseSystem), nameof(PlayerPoseSystem.OnPoseSetCompleted), new Type[] { typeof(PoseSet) })]
         private static class PosePatch
         {
             private static void Postfix(PoseSet set)
@@ -164,7 +164,7 @@ namespace FlappyBirdWalls
 
         public override void OnLateInitializeMelon()
         {
-            ddolCanvas = GameObject.Instantiate(Calls.LoadAssetFromStream<GameObject>(this, "FlappyBirdWalls.flappybird", "Canvas"));
+            ddolCanvas = GameObject.Instantiate(AssetBundles.LoadAssetFromStream<GameObject>(this, "FlappyBirdWalls.flappybird", "Canvas"));
             ddolCanvas.name = "Flappy Bird Canvas";
             ddolCanvas.SetActive(false);
             GameObject.DontDestroyOnLoad(ddolCanvas);
