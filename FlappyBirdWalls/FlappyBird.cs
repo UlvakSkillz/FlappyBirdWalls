@@ -15,7 +15,7 @@ namespace FlappyBirdWalls
         private const float halfScreenHeight = 400;
         private const float halfScreenWidth = 250;
         public bool gameStarted = false;
-        private GameObject canvas, birdMain, birdUp, birdFlat, birdDown, pipe1, pipe2, score1, score2;
+        internal GameObject trigger, canvas, birdMain, birdUp, birdFlat, birdDown, pipe1, pipe2, score1, score2;
 
         class Bird
         {
@@ -37,6 +37,7 @@ namespace FlappyBirdWalls
         {
             GameObject triggerGO = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Component.Destroy(triggerGO.GetComponent<MeshRenderer>());
+            trigger = triggerGO;
             triggerGO.name = "FlappyBirdTrigger";
             triggerGO.transform.parent = this.gameObject.transform;
             triggerGO.transform.localPosition = new Vector3(0f, 0f, -0.315f);
@@ -44,7 +45,6 @@ namespace FlappyBirdWalls
             triggerGO.transform.localScale = new Vector3(1.1f, 1.9f, 0.01f);
             triggerGO.layer = 22; //PlayerOnPlayerInteraction
             triggerGO.GetComponent<BoxCollider>().isTrigger = true;
-            triggerGO.AddComponent<FlappyBirdStart>();
             canvas = GameObject.Instantiate(Main.ddolCanvas);
             score1 = canvas.transform.GetChild(0).GetChild(0).gameObject;
             
@@ -76,19 +76,8 @@ namespace FlappyBirdWalls
             score2TMP.text = "2";
             score2TMP.alignment = TextAlignmentOptions.Center;
             score2TMP.fontSize = 64f;
-            MelonCoroutines.Start(StopGameIfStructureDestroyed(this.gameObject.transform.parent.gameObject));
+            
             MelonCoroutines.Start(GameLoop());
-        }
-
-        private IEnumerator StopGameIfStructureDestroyed(GameObject structure)
-        {
-            while (structure.activeSelf)
-            {
-                yield return new WaitForFixedUpdate();
-            }
-            canvas.SetActive(false);
-            bird.isAlive = false;
-            yield break;
         }
 
         public void Jump()

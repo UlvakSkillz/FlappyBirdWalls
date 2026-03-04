@@ -16,13 +16,13 @@
           "Il2CppPhotonUnityNetworking": "0.0.0.0",
           "Il2CppRUMBLE.Plugins": "0.0.0.0",
           "Il2CppRUMBLE.Runtime": "0.0.0.0",
-          "MelonLoader": "0.7.2.2394",
+          "MelonLoader": "0.7.2.2398",
           "ModUI": "2.3.0.0",
           "RumbleModdingAPI": "1.0.0.0",
           "Unity.TextMeshPro": "0.0.0.0",
           "UnityEngine.CoreModule": "0.0.0.0",
           "UnityEngine": "0.0.0.0",
-          "UnityEngine.Il2CppAssetBundleManager": "0.7.2.2394",
+          "UnityEngine.Il2CppAssetBundleManager": "0.7.2.2398",
           "UnityEngine.InputLegacyModule": "0.0.0.0",
           "UnityEngine.PhysicsModule": "0.0.0.0",
           "UnityEngine.UI": "1.0.0.0"
@@ -95,11 +95,11 @@
           }
         }
       },
-      "MelonLoader/0.7.2.2394": {
+      "MelonLoader/0.7.2.2398": {
         "runtime": {
           "MelonLoader.dll": {
-            "assemblyVersion": "0.7.2.2394",
-            "fileVersion": "0.7.2.2394"
+            "assemblyVersion": "0.7.2.2398",
+            "fileVersion": "0.7.2.2398"
           }
         }
       },
@@ -143,11 +143,11 @@
           }
         }
       },
-      "UnityEngine.Il2CppAssetBundleManager/0.7.2.2394": {
+      "UnityEngine.Il2CppAssetBundleManager/0.7.2.2398": {
         "runtime": {
           "UnityEngine.Il2CppAssetBundleManager.dll": {
-            "assemblyVersion": "0.7.2.2394",
-            "fileVersion": "0.7.2.2394"
+            "assemblyVersion": "0.7.2.2398",
+            "fileVersion": "0.7.2.2398"
           }
         }
       },
@@ -415,14 +415,6 @@
           }
         }
       },
-      "Il2CppPhotonVoice.PUN/0.0.0.0": {
-        "runtime": {
-          "Il2CppPhotonVoice.PUN.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "MonoMod.Utils/22.7.31.1": {
         "runtime": {
           "MonoMod.Utils.dll": {
@@ -591,6 +583,14 @@
           }
         }
       },
+      "Il2CppSystem.Numerics/4.0.0.0": {
+        "runtime": {
+          "Il2CppSystem.Numerics.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "Il2CppMono.Security/4.0.0.0": {
         "runtime": {
           "Il2CppMono.Security.dll": {
@@ -623,25 +623,9 @@
           }
         }
       },
-      "Unity.XR.CompositionLayers/0.0.0.0": {
-        "runtime": {
-          "Unity.XR.CompositionLayers.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "UnityEngine.UnityAnalyticsCommonModule/0.0.0.0": {
         "runtime": {
           "UnityEngine.UnityAnalyticsCommonModule.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "UnityEngine.VideoModule/0.0.0.0": {
-        "runtime": {
-          "UnityEngine.VideoModule.dll": {
             "assemblyVersion": "0.0.0.0",
             "fileVersion": "0.0.0.0"
           }
@@ -791,14 +775,6 @@
           }
         }
       },
-      "Unity.XR.CoreUtils/0.0.0.0": {
-        "runtime": {
-          "Unity.XR.CoreUtils.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
       "Il2CppLIV.LCKCore.ThirdParty.MessagePack/0.0.0.0": {
         "runtime": {
           "Il2CppLIV.LCKCore.ThirdParty.MessagePack.dll": {
@@ -887,7 +863,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "MelonLoader/0.7.2.2394": {
+    "MelonLoader/0.7.2.2398": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -917,7 +893,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "UnityEngine.Il2CppAssetBundleManager/0.7.2.2394": {
+    "UnityEngine.Il2CppAssetBundleManager/0.7.2.2398": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -1087,11 +1063,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Il2CppPhotonVoice.PUN/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "MonoMod.Utils/22.7.31.1": {
       "type": "reference",
       "serviceable": false,
@@ -1197,6 +1168,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Il2CppSystem.Numerics/4.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Il2CppMono.Security/4.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -1217,17 +1193,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Unity.XR.CompositionLayers/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
     "UnityEngine.UnityAnalyticsCommonModule/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "UnityEngine.VideoModule/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -1318,11 +1284,6 @@
       "sha512": ""
     },
     "UnityEngine.JSONSerializeModule/0.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Unity.XR.CoreUtils/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

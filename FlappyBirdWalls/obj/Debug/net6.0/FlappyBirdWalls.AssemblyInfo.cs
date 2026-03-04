@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FlappyBirdWalls")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0aa2d1ced0a3597a2d35ba257db1731b46724148")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40089b8cb1f022b656418d3a4c6252110ee9ee1f")]
 [assembly: System.Reflection.AssemblyProductAttribute("FlappyBirdWalls")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FlappyBirdWalls")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

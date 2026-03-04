@@ -40,14 +40,28 @@ namespace FlappyBirdWalls
             {
                 try
                 {
-                    if (__instance.processableComponent.gameObject.name != "Wall") { return; }
+                    if (__instance.gameObject.name != "Wall") { return; }
                 }
                 catch (Exception e)
                 {
                     MelonLogger.Msg(e);
                     return;
                 }
-                __instance.processableComponent.gameObject.transform.GetChild(0).gameObject.AddComponent<FlappyBird>();
+                __instance.gameObject.transform.GetChild(0).gameObject.AddComponent<FlappyBird>();
+            }
+        }
+
+        [HarmonyPatch(typeof(Structure), nameof(Structure.OnReturnToPool))]
+        public static class StructureBreak
+        {
+            private static void Postfix(ref Structure __instance)
+            {
+                if (__instance.gameObject.name != "Wall") { return; }
+                FlappyBird flappyToGo = __instance.gameObject.transform.GetChild(0).gameObject.GetComponent<FlappyBird>();
+                if (flappyToGo == null) { return; }
+                GameObject.Destroy(flappyToGo.canvas);
+                GameObject.Destroy(flappyToGo.trigger);
+                Component.Destroy(flappyToGo);
             }
         }
 
@@ -61,7 +75,7 @@ namespace FlappyBirdWalls
                     if (!kickPlay) { return; }
                     if (set.name == "PoseSetKick")
                     {
-                        GameObject structureSelected = SelectStructure(PlayerManager.instance.localPlayer.Controller.gameObject.transform.GetChild(2).GetChild(0).GetChild(0));
+                        GameObject structureSelected = SelectStructure(PlayerManager.instance.localPlayer.Controller.PlayerCamera.transform);
                         if ((structureSelected == null) || (structureSelected.name != "Wall")) { return; }
                         FlappyBird flappyBird = structureSelected.transform.GetChild(0).GetComponent<FlappyBird>();
                         if (!flappyBird.gameStarted)
