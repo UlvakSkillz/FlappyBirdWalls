@@ -15,7 +15,7 @@ namespace FlappyBirdWalls
     {
         public const string ModName = "FlappyBirdWalls";
         public const string Author = "UlvakSkillz";
-        public const string ModVersion = "1.2.1";
+        public const string ModVersion = "1.2.2";
     }
 
     public class Main : MelonMod
@@ -59,6 +59,7 @@ namespace FlappyBirdWalls
                 if (__instance.gameObject.name != "Wall") { return; }
                 FlappyBird flappyToGo = __instance.gameObject.transform.GetChild(0).gameObject.GetComponent<FlappyBird>();
                 if (flappyToGo == null) { return; }
+                flappyToGo.gameStarted = false;
                 GameObject.Destroy(flappyToGo.canvas);
                 GameObject.Destroy(flappyToGo.trigger);
                 Component.Destroy(flappyToGo);

@@ -17,7 +17,7 @@ namespace FlappyBirdWalls
         public bool gameStarted = false;
         internal GameObject trigger, canvas, birdMain, birdUp, birdFlat, birdDown, pipe1, pipe2, score1, score2;
 
-        class Bird
+        public class Bird
         {
             public bool isAlive = false;
             public int gameScore = 0;
@@ -90,10 +90,17 @@ namespace FlappyBirdWalls
         {
             while (bird.isAlive && gameStarted)
             {
-                CheckPipes();
-                MovePipes();
-                MoveBird();
-                UpdatePositions();
+                try
+                {
+                    CheckPipes();
+                    MovePipes();
+                    MoveBird();
+                    UpdatePositions();
+                }
+                catch (Exception e)
+                {
+                    Melon<Main>.Logger.Error(e);
+                }
                 yield return new WaitForFixedUpdate();
             }
             gameStarted = false;
