@@ -4,6 +4,7 @@ using Il2CppRUMBLE.MoveSystem;
 using Il2CppRUMBLE.Players.Subsystems;
 using Il2CppRUMBLE.Pools;
 using Il2CppRUMBLE.Poses;
+using Il2CppTMPro;
 using MelonLoader;
 using RumbleModdingAPI.RMAPI;
 using RumbleModUI;
@@ -15,29 +16,25 @@ namespace FlappyBirdWalls
     {
         public const string ModName = "FlappyBirdWalls";
         public const string Author = "UlvakSkillz";
-        public const string ModVersion = "1.2.2";
+        public const string ModVersion = "1.2.3";
     }
 
     public class Main : MelonMod
     {
         public static GameObject ddolCanvas;
         private Mod FlappyBirdWalls = new Mod();
+        private static string currentScene = "Loader";
+        private static bool scoreInit = false;
         public static bool touchPlay = true;
         public static bool kickPlay = true;
-        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresWall;
-        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresCube;
-        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresPillar;
-        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresBall;
-        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresDisc;
-        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresBoulder;
-        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresSmallRock;
-        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresTetherBall;
+        private static Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructuresWall, pooledStructuresCube, pooledStructuresPillar, pooledStructuresBall, pooledStructuresDisc, pooledStructuresBoulder, pooledStructuresSmallRock,  pooledStructuresBoulderBall, pooledStructuresWrappedWall, pooledStructuresPrisonedPillar, pooledStructuresCageCube, pooledStructuresDockedDisk;
 
         [HarmonyPatch(typeof(Structure), nameof(Structure.OnFetchFromPool))]
         public static class StructureSpawn
         {
             private static void Postfix(ref Structure __instance)
             {
+                if (currentScene == "Loader") { return; }
                 try
                 {
                     if (__instance.gameObject.name != "Wall") { return; }
@@ -99,15 +96,12 @@ namespace FlappyBirdWalls
             List<GameObject> lookingAtStructureGOs = new List<GameObject>();
             List<float> lookingAtStructureDistances = new List<float>();
             Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pooledStructures = new Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour>();
+            Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour>[] pools = { pooledStructuresWall, pooledStructuresCube, pooledStructuresPillar, pooledStructuresBall, pooledStructuresDisc, pooledStructuresBoulder, pooledStructuresSmallRock, pooledStructuresBoulderBall, pooledStructuresWrappedWall, pooledStructuresPrisonedPillar, pooledStructuresCageCube, pooledStructuresDockedDisk };
             //Add each Turned On Structure to a Single List
-            for (int i = 0; i < pooledStructuresWall.Count; i++) { if (pooledStructuresWall[i].transform.gameObject.active) { pooledStructures.Add(pooledStructuresWall[i]); } }
-            for (int i = 0; i < pooledStructuresCube.Count; i++) { if (pooledStructuresCube[i].transform.gameObject.active) { pooledStructures.Add(pooledStructuresCube[i]); } }
-            for (int i = 0; i < pooledStructuresPillar.Count; i++) if (pooledStructuresPillar[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresPillar[i]); } }
-            for (int i = 0; i < pooledStructuresBall.Count; i++) if (pooledStructuresBall[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresBall[i]); } }
-            for (int i = 0; i < pooledStructuresDisc.Count; i++) if (pooledStructuresDisc[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresDisc[i]); } }
-            for (int i = 0; i < pooledStructuresBoulder.Count; i++) if (pooledStructuresBoulder[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresBoulder[i]); } }
-            for (int i = 0; i < pooledStructuresSmallRock.Count; i++) if (pooledStructuresSmallRock[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresSmallRock[i]); } }
-            for (int i = 0; i < pooledStructuresTetherBall.Count; i++) if (pooledStructuresTetherBall[i].transform.gameObject.active) { { pooledStructures.Add(pooledStructuresTetherBall[i]); } }
+            foreach (Il2CppSystem.Collections.Generic.List<PooledMonoBehaviour> pool in pools)
+            {
+                for (int i = 0; i < pool.Count; i++) { if (pool[i].transform.gameObject.active) { pooledStructures.Add(pool[i]); } }
+            }
             //for each structure
             for (int i = 0; i < pooledStructures.Count; i++)
             {
@@ -179,10 +173,12 @@ namespace FlappyBirdWalls
 
         public override void OnLateInitializeMelon()
         {
+            //store canvas for walls
             ddolCanvas = GameObject.Instantiate(AssetBundles.LoadAssetFromStream<GameObject>(this, "FlappyBirdWalls.flappybird", "Canvas"));
             ddolCanvas.name = "Flappy Bird Canvas";
             ddolCanvas.SetActive(false);
             GameObject.DontDestroyOnLoad(ddolCanvas);
+            //setup modui
             FlappyBirdWalls.ModName = BuildInfo.ModName;
             FlappyBirdWalls.ModVersion = BuildInfo.ModVersion;
             FlappyBirdWalls.SetFolder("FlappyBirdWalls");
@@ -195,7 +191,8 @@ namespace FlappyBirdWalls
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
-            if (sceneName == "Loader")
+            currentScene = sceneName;
+            if (currentScene == "Loader")
             {
                 //store pools
                 pooledStructuresWall = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("Wall")].PooledObjects;
@@ -205,30 +202,36 @@ namespace FlappyBirdWalls
                 pooledStructuresDisc = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("Disc")].PooledObjects;
                 pooledStructuresBoulder = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("LargeRock")].PooledObjects;
                 pooledStructuresSmallRock = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("SmallRock")].PooledObjects;
-                pooledStructuresTetherBall = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("BoulderBall")].PooledObjects;
+                pooledStructuresBoulderBall = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("BoulderBall")].PooledObjects;
+                pooledStructuresWrappedWall = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("WrappedWall")].PooledObjects;
+                pooledStructuresPrisonedPillar = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("PrisonedPillar")].PooledObjects;
+                pooledStructuresCageCube = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("CageCube")].PooledObjects;
+                pooledStructuresDockedDisk = PoolManager.instance.availablePools[PoolManager.instance.GetPoolIndex("DockedDisk")].PooledObjects;
+            }
+            else if (!scoreInit && (currentScene == "Gym"))
+            {
+                GameObject TMPUGUIGO1 = GameObject.Instantiate(GameObjects.Gym.INTERACTABLES.BeltRack.RankStatusSlab.StatusForm.RankStatusFormCanvas.MountainRank.GetGameObject());
+                TMPUGUIGO1.SetActive(true);
+                GameObject TMPUGUIGO2 = GameObject.Instantiate(TMPUGUIGO1);
+                TMPUGUIGO1.name = "Score1";
+                TMPUGUIGO2.name = "Score2";
+                TMPUGUIGO1.transform.SetParent(ddolCanvas.transform.GetChild(0));
+                TMPUGUIGO2.transform.SetParent(ddolCanvas.transform.GetChild(0));
+                scoreInit = true;
             }
         }
 
         private void UIInit()
         {
+            //add mod to modui
             UI.instance.AddMod(FlappyBirdWalls);
         }
 
         private void Save()
         {
+            //update variables
             touchPlay = (bool)FlappyBirdWalls.Settings[0].SavedValue;
             kickPlay = (bool)FlappyBirdWalls.Settings[1].SavedValue;
-        }
-
-        public GameObject LoadAssetBundle(string bundleName, string objectName)
-        {
-            using (Stream bundleStream = MelonAssembly.Assembly.GetManifestResourceStream(bundleName))
-            {
-                byte[] bundleBytes = new byte[bundleStream.Length];
-                bundleStream.Read(bundleBytes, 0, bundleBytes.Length);
-                Il2CppAssetBundle bundle = Il2CppAssetBundleManager.LoadFromMemory(bundleBytes);
-                return UnityEngine.Object.Instantiate(bundle.LoadAsset<GameObject>(objectName));
-            }
         }
     }
 }

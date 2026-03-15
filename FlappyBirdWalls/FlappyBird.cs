@@ -60,6 +60,8 @@ namespace FlappyBirdWalls
             canvas.transform.localPosition = new Vector3(0f, 0f, -0.315f);
             canvas.transform.localRotation = Quaternion.identity;
             canvas.transform.localScale = new Vector3(0.0023f, 0.0023f, 0.0023f);
+
+            triggerGO.AddComponent<FlappyBirdStart>();
         }
 
         public void StartGame()
@@ -71,11 +73,11 @@ namespace FlappyBirdWalls
             TextMeshProUGUI score1TMP = score1.GetComponent<TextMeshProUGUI>();
             score1TMP.text = "1";
             score1TMP.alignment = TextAlignmentOptions.Center;
-            score1TMP.fontSize = 64f;
+            score1TMP.fontSize = 20f;
             TextMeshProUGUI score2TMP = score2.GetComponent<TextMeshProUGUI>();
             score2TMP.text = "2";
             score2TMP.alignment = TextAlignmentOptions.Center;
-            score2TMP.fontSize = 64f;
+            score2TMP.fontSize = 20f;
             
             MelonCoroutines.Start(GameLoop());
         }
